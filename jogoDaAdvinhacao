@@ -1,0 +1,116 @@
+import java.util.Scanner;
+import java.util.Random;
+
+class jogoDaAdvinhacao {
+
+    public static void main(String[] args) throws Exception {
+
+        Scanner scan = new Scanner(System.in);
+        char jogarNovamente;
+
+        do {
+
+            // ===== ABERTURA =====
+            System.out.println(" ___________________________________________________________________________________________________________________________________________________________");
+            System.out.println("|                                                                      _____                                                                               |");
+            System.out.println("|                                                                     |     |                                                                              |");
+            System.out.println("|                                                                     |     |                                                                              |");
+            System.out.println("|                                                                  ___|_____|___                                                                           |");
+            System.out.println("|                                                                  _____________                                                                           |");
+            System.out.println("|                                                                 |             |                                                                          |");
+            System.out.println("|                                                                 |   O     O   |                                                                          |");
+            System.out.println("|                                                                 |      ^      |                                                                          |");
+            System.out.println("|                                                                 |    \\___/    |                                                                          |");
+            System.out.println("|                                                                 |_____________|                                                                          |");
+            System.out.println("|                                                                                                                                                          |");
+            System.out.println("|                                                        BEM-VINDO AO JOGO DA ADIVINHACAO                                                                  |");
+            System.out.println("|                                                                                                                                                          |");
+            System.out.println("|                                                                   Boa sorte! :)                                                                          |");
+            System.out.println("|__________________________________________________________________________________________________________________________________________________________|");
+
+            
+            Random random = new Random();              //Permitirá que um número aleatório seja gerado e o atribuirá à variável "random"
+            int numerosecreto = random.nextInt(100);   //Para colocar o número, utiliza-se o "random" juntando com ".nextInt(100)". 
+            int nivel;
+            int chute;
+            int totaldetentativas;
+            boolean ganhou = false;
+            double pontos = 1000.0;
+
+            
+            System.out.print("\nQual o nivel de dificuldade?\n");
+            System.out.print(" (1)-Facil (2)-Medio  (3)-Dificil\n\n");
+            System.out.print("Digite sua opcao: ");
+            nivel = scan.nextInt();
+
+            switch (nivel) {
+                case 1:
+                    totaldetentativas = 20;
+                    break;
+                case 2:
+                    totaldetentativas = 15;
+                    break;
+                default:
+                    totaldetentativas = 6;
+            }
+
+            
+            for (int i = 1; i <= totaldetentativas; i++) {      //A variável tentativas guardará a condição final a ser atingida
+
+                System.out.print("\nQual seu chute? ");
+                chute = scan.nextInt();
+
+                System.out.print("Tentativa [" + i + "] de " + totaldetentativas);
+
+                if (chute < 0) {
+                    System.out.println("\nVOCE NAO PODE CHUTAR NUMEROS NEGATIVOS!");
+                    continue;
+                }
+
+                double pontosperdidos = Math.abs(chute - numerosecreto) / 2.0;
+                pontos -= pontosperdidos;
+
+                boolean acertou = (chute == numerosecreto);
+                boolean maior = chute > numerosecreto;
+
+                if (acertou) {
+                    System.out.println("\nPARABENS VOCE ACERTOU!");
+                    ganhou = true;
+                    break;
+                } else if (maior) {
+                    System.out.println("\nSEU NUMERO FOI MAIOR QUE O NUMERO SECRETO!");
+                } else {
+                    System.out.println("\nSEU NUMERO FOI MENOR QUE O NUMERO SECRETO!");
+                }
+
+                System.out.printf(" Pontos perdidos: %.2f", pontosperdidos);
+                System.out.printf(" | Pontuacao atual: %.2f%n", pontos);
+            }
+
+            
+            if (ganhou) {
+                System.out.println("_____________________________________________________");
+                System.out.printf("| %-51s |%n", "Total de tentativas: " + totaldetentativas);
+                System.out.printf("| %-51s |%n", String.format("Total de pontos: %.2f", pontos));
+                System.out.println("|                                                     |");
+                System.out.printf("| %-51s |%n", "OBRIGADO POR JOGAR");
+                System.out.println("|___________________________________________________|");
+            } else {
+                System.out.println("_______________________________________________________");
+                System.out.printf("| %-51s |%n", "Que pena! Voce nao conseguiu acertar.");
+                System.out.printf("| %-51s |%n", "Quem sabe na proxima?");
+                System.out.println("|                                                     |");
+                System.out.printf("| %-51s |%n", "OBRIGADO POR JOGAR");
+                System.out.println("|_____________________________________________________|");
+            }
+
+            
+            System.out.print("\nDeseja jogar novamente? (S/N): ");
+            jogarNovamente = scan.next().toUpperCase().charAt(0);
+
+        } while (jogarNovamente == 'S');
+
+        System.out.println("\nPrograma encerrado. Ate a proxima!");
+
+    }
+}
