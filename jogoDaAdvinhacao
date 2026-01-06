@@ -54,8 +54,11 @@ class jogoDaAdvinhacao {
                     totaldetentativas = 6;
             }
 
-            
+            int tentativasUsadas = 0;
+
             for (int i = 1; i <= totaldetentativas; i++) {      //A variável tentativas guardará a condição final a ser atingida
+
+            tentativasUsadas++;
 
                 System.out.print("\nQual seu chute? ");
                 chute = scan.nextInt();
@@ -90,7 +93,7 @@ class jogoDaAdvinhacao {
             
             if (ganhou) {
                 System.out.println("_____________________________________________________");
-                System.out.printf("| %-51s |%n", "Total de tentativas: " + totaldetentativas);
+                System.out.printf("| %-51s |%n", "Total de tentativas: " + tentativasUsadas);
                 System.out.printf("| %-51s |%n", String.format("Total de pontos: %.2f", pontos));
                 System.out.println("|                                                     |");
                 System.out.printf("| %-51s |%n", "OBRIGADO POR JOGAR");
